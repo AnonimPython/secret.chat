@@ -1,0 +1,32 @@
+#/ ============================================================================
+#/  docker-compose.yml — удобный запуск одной командой
+#/  docker-compose.yml — one-command launch
+#/ ============================================================================
+#/  make up            → собрать и запустить
+#/  make up            → build and start
+#/  открыть в браузере: http://localhost:6080/vnc.html
+
+services:
+  secretchat:
+    build: .
+    container_name: secretchat
+    restart: unless-stopped
+    ports:
+      # P2P: к тебе будут подключаться другие   |  P2P: others connect to you here
+      - "42000:42000"
+      # noVNC: GUI в браузере                  |  noVNC: the GUI in a browser
+      - "6080:6080"
+      # VNC: клиент-подключение (опционально)  |  VNC: client connection (optional)
+      - "5900:5900"
+    volumes:
+      # конфиг монтируется — правишь снаружи без пересборки
+      # the config is mounted — edit it outside without rebuilding
+      - ./config.py:/app/config.py:ro
+      # runtime-настройки (тема/язык/порт) переживают пересборку
+      # runtime settings (theme/language/port) survive rebuilds
+      - secretchat_data:/root/.secret_chat
+    environment:
+      - DISPLAY=:99
+
+volumes:
+  secretchat_data:
