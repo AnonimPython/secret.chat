@@ -25,12 +25,19 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from PySide6.QtWidgets import QApplication
-from PySide6.QtGui import QFont
+from PySide6.QtGui import QFont, QIcon
 
 import config as CONFIG
 from secret_chat import prefs
 from secret_chat.manager import ChatManager
 from secret_chat.ui import MainWindow
+
+
+def resource_path(rel):
+  #* путь к ресурсам: исходники vs упакованный exe/app (_MEIPASS)
+  #* resources path: source tree vs a frozen exe/app (_MEIPASS)
+  base = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+  return os.path.join(base, rel)
 
 
 def main():
@@ -42,6 +49,11 @@ def main():
   app = QApplication(sys.argv)
   app.setApplicationName(CONFIG.APP_NAME)
   app.setApplicationVersion(CONFIG.APP_VERSION)
+
+  #* иконка приложения: окно и панель задач (Win), док (macOS)
+  #* app icon: window and taskbar (Win), dock (macOS)
+  icon_name = 'logo.icns' if sys.platform == 'darwin' else 'logo.ico'
+  app.setWindowIcon(QIcon(resource_path(os.path.join('assets', icon_name))))
 
   #* системный шрифт чуть крупнее — читается лучше |  a slightly larger system font
   font = app.font()

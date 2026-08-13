@@ -47,6 +47,8 @@ if "%MODE%"=="onefile" (
         --include-qt-plugins=all ^
         --include-package=cryptography ^
         --include-package-data=cryptography ^
+        --include-data-files=assets=assets ^
+        --windows-icon-from-ico=assets\logo.ico ^
         --nofollow-import-to=tkinter ^
         --windows-console-mode=disable ^
         --output-dir=dist_nuitka ^
@@ -72,6 +74,8 @@ if "%MODE%"=="onefile" (
         --include-qt-plugins=all ^
         --include-package=cryptography ^
         --include-package-data=cryptography ^
+        --include-data-files=assets=assets ^
+        --windows-icon-from-ico=assets\logo.ico ^
         --nofollow-import-to=tkinter ^
         --windows-console-mode=disable ^
         --output-dir=dist_nuitka ^

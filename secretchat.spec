@@ -23,7 +23,7 @@ a = Analysis(
   ['main.py'],
   pathex=['.'],
   binaries=[],
-  datas=[],
+  datas=[('assets', 'assets')],
   hiddenimports=hiddenimports,
   hookspath=[],
   runtime_hooks=[],
@@ -60,7 +60,7 @@ if sys.platform == 'darwin':
   app = BUNDLE(
     coll,
     name='SecretChat.app',
-    icon=None,
+    icon='assets/logo.icns',
     bundle_identifier='com.secretchat.app',
     info_plist={
       'NSHighResolutionCapable': True,
@@ -93,4 +93,5 @@ else:
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon='assets/logo.ico',
   )
