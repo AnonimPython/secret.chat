@@ -1,0 +1,9 @@
+#/ ============================================================================
+#/  requirements.txt — всё, что нужно для запуска (один файл)
+#/  requirements.txt — everything needed to run (a single file)
+#/ ============================================================================
+#/  установка:  python -m pip install -r requirements.txt
+#/  install:    python -m pip install -r requirements.txt
+
+PySide6>=6.5,<7
+cryptography>=41
