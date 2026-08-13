@@ -1,0 +1,32 @@
+#/ ============================================================================
+#/  ci.yml — тесты на каждый пуш / PR
+#/  ci.yml — tests on every push / PR
+#/ ============================================================================
+#/  гоняет ядро (крипто, рукопожатие, сеть) и UI-smoke (два окна, offscreen)
+#/  runs the core tests (crypto, handshake, network) and the UI smoke test
+#/  (two windows, offscreen)
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: install Qt system libs
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgl1 libglib2.0-0 libegl1 libxkbcommon0 libdbus-1-3 libfontconfig1 libpulse-dev
+      - name: install deps
+        run: pip install -r requirements.txt
+      - name: core tests
+        run: python tests/test_e2e.py
+      - name: UI smoke test
+        run: QT_QPA_PLATFORM=offscreen python tests/test_ui_smoke.py
